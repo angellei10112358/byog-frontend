@@ -37,7 +37,7 @@ export default function useGameSession() {
       setSelectedVersionId(versionId);
       setMessages((prev) => [
         ...prev,
-        { role: 'system', text: `Version ${versionId} ready`, id: Date.now() + 1 },
+        { role: 'system', text: 'Go check your game!', id: Date.now() + 1 },
       ]);
     } catch (err) {
       setError(err.message);

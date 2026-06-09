@@ -1,4 +1,18 @@
+import { useState, useEffect } from 'react';
+import { facts } from '../data/facts';
+
 export default function MessageList({ messages, isLoading }) {
+  const [factIndex, setFactIndex] = useState(0);
+
+  useEffect(() => {
+    if (!isLoading) return;
+    setFactIndex(Math.floor(Math.random() * facts.length));
+    const interval = setInterval(() => {
+      setFactIndex((prev) => (prev + 1) % facts.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isLoading]);
+
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-3">
       {messages.length === 0 && !isLoading && (
@@ -19,8 +33,9 @@ export default function MessageList({ messages, isLoading }) {
         </div>
       ))}
       {isLoading && (
-        <div className="bg-gray-700 text-gray-200 mr-8 p-3 rounded-lg text-sm animate-pulse">
-          Generating game...
+        <div className="bg-gray-700 text-gray-200 mr-8 p-3 rounded-lg text-sm">
+          <p className="text-gray-400 font-medium mb-1">Generating your game...</p>
+          <p className="italic">{facts[factIndex]}</p>
         </div>
       )}
     </div>
