@@ -31,8 +31,9 @@ export default function useGameSession() {
     setIsLoading(true);
 
     try {
-      const { versionId, html, createdAt } = await sendMessage(id, text);
-      const newVersion = { versionId, html, label: text.slice(0, 80), createdAt };
+      const res = await sendMessage(id, text);
+      const versionId = res.prebuilt ? `prebuilt-${res.versionId}` : res.versionId;
+      const newVersion = { versionId, html: res.html, label: text.slice(0, 80), createdAt: res.createdAt };
       setVersions((prev) => [...prev, newVersion]);
       setSelectedVersionId(versionId);
       setMessages((prev) => [
@@ -50,27 +51,6 @@ export default function useGameSession() {
     }
   }, []);
 
-  const loadPreBuiltGame = useCallback(async (game) => {
-    try {
-      const res = await fetch(game.file);
-      const html = await res.text();
-      const versionId = `prebuilt-${game.id}-${Date.now()}`;
-      const newVersion = { versionId, html, label: game.label, createdAt: new Date().toISOString() };
-      setVersions((prev) => [...prev, newVersion]);
-      setSelectedVersionId(versionId);
-      setMessages((prev) => [
-        ...prev,
-        { role: 'user', text: `Show me ${game.label}`, id: Date.now() },
-        { role: 'system', text: `Loaded ${game.label}`, id: Date.now() + 1 },
-      ]);
-    } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'system', text: `Failed to load ${game.label}`, id: Date.now() },
-      ]);
-    }
-  }, []);
-
   const currentHtml = versions.find((v) => v.versionId === selectedVersionId)?.html || null;
 
   return {
@@ -83,7 +63,6 @@ export default function useGameSession() {
     error,
     initSession,
     submitMessage,
-    loadPreBuiltGame,
     setSelectedVersionId,
   };
 }

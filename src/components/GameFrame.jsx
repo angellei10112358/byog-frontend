@@ -11,7 +11,7 @@ export default function GameFrame({ html, isPreBuilt }) {
     <div className="flex-1 bg-white">
       <iframe
         srcDoc={html}
-        sandbox={isPreBuilt ? undefined : 'allow-scripts'}
+        sandbox={isPreBuilt ? 'allow-scripts allow-same-origin' : 'allow-scripts'}
         className="w-full h-full border-0"
         title="game-preview"
       />
