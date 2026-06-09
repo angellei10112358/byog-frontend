@@ -36,6 +36,7 @@ export default function useGameSession() {
       const newVersion = { versionId, html: res.html, label: text.slice(0, 80), createdAt: res.createdAt };
       setVersions((prev) => [...prev, newVersion]);
       setSelectedVersionId(versionId);
+      setTimeout(() => document.querySelector('iframe')?.focus(), 100);
       setMessages((prev) => [
         ...prev,
         { role: 'system', text: 'Go check your game!', id: Date.now() + 1 },
