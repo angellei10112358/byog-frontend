@@ -13,7 +13,7 @@ export async function sendMessage(sessionId, message) {
     body: JSON.stringify({ message }),
   });
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Request failed');
+  if (!res.ok || data.error) throw new Error(data.error || 'Request failed');
   return data;
 }
 
