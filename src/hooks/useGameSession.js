@@ -45,7 +45,7 @@ export default function useGameSession() {
       setError(err.message);
       setMessages((prev) => [
         ...prev,
-        { role: 'system', text: `Error: ${err.message}`, id: Date.now() + 1 },
+        { role: 'system', text: `Error: ${err.message}. If the request times out, try a simpler description or upgrade to a paid Render plan for longer timeout support.`, id: Date.now() + 1 },
       ]);
     } finally {
       setIsLoading(false);
