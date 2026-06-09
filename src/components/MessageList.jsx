@@ -9,7 +9,7 @@ export default function MessageList({ messages, isLoading }) {
     setFactIndex(Math.floor(Math.random() * facts.length));
     const interval = setInterval(() => {
       setFactIndex((prev) => (prev + 1) % facts.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [isLoading]);
 
@@ -35,7 +35,7 @@ export default function MessageList({ messages, isLoading }) {
       {isLoading && (
         <div className="bg-gray-700 text-gray-200 mr-8 p-3 rounded-lg text-sm">
           <p className="text-gray-400 font-medium mb-1">Generating your game...</p>
-          <p className="italic">{facts[factIndex]}</p>
+          <p className="italic">Did you know... {facts[factIndex]}</p>
         </div>
       )}
     </div>
