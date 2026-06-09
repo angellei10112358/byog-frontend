@@ -2,7 +2,7 @@ import { preBuiltGames } from '../data/cases';
 
 export default function CaseButtons({ onSelect }) {
   return (
-    <div className="overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-700 bg-gray-850 scrollbar-hide">
+    <div className="overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-700 bg-gray-800">
       <div className="flex gap-2">
         {preBuiltGames.map((game) => (
           <button
