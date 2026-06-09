@@ -13,6 +13,7 @@ export default function App() {
     isLoading,
     initSession,
     submitMessage,
+    loadPreBuiltGame,
     setSelectedVersionId,
   } = useGameSession();
 
@@ -23,7 +24,7 @@ export default function App() {
   return (
     <div className="h-full w-full flex bg-gray-900 text-white">
       <div className="w-[400px] min-w-[320px] border-r border-gray-700">
-        <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} />
+        <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} onSelectPreBuilt={loadPreBuiltGame} />
       </div>
       <div className="flex-1">
         <PreviewPanel
