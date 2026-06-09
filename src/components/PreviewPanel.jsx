@@ -1,15 +1,14 @@
+import { useState } from 'react';
 import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
 
 export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion }) {
+  const [rerunKey, setRerunKey] = useState(0);
   const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
   const isPreBuilt = currentVersion?.versionId?.startsWith('prebuilt-') ?? false;
 
   function handleRerun() {
-    const iframe = document.querySelector('iframe');
-    if (iframe && currentHtml) {
-      iframe.srcdoc = currentHtml;
-    }
+    setRerunKey((k) => k + 1);
   }
 
   function handleDownload() {
@@ -34,7 +33,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} isPreBuilt={isPreBuilt} />
+      <GameFrame key={rerunKey} html={currentHtml} isPreBuilt={isPreBuilt} />
     </div>
   );
 }
