@@ -2,6 +2,9 @@ import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
 
 export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion }) {
+  const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
+  const isPreBuilt = currentVersion?.versionId?.startsWith('prebuilt-') ?? false;
+
   function handleRerun() {
     const iframe = document.querySelector('iframe');
     if (iframe && currentHtml) {
@@ -31,7 +34,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} />
+      <GameFrame html={currentHtml} isPreBuilt={isPreBuilt} />
     </div>
   );
 }
