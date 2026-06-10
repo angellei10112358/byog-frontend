@@ -4,7 +4,6 @@ import { checkHealth } from '../api';
 const BACKENDS = [
   { label: 'Render',  url: import.meta.env.VITE_BACKEND_RENDER },
   { label: 'Railway', url: import.meta.env.VITE_BACKEND_RAILWAY },
-  { label: 'Local',   url: 'http://localhost:3001' },
 ].filter((b) => b.url);
 
 export default function BackendSelector({ currentUrl, onSwitch }) {
