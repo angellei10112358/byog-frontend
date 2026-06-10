@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-const GAMES = ['Tetris', 'Battle City', 'Dragon Quest', 'Minesweeper', 'Sudoku', 'Chinese Chess', '2048'];
+const GAMES = ['Tetris', 'Battle City', 'Dragon Quest', 'Minesweeper', 'Sudoku', 'Chinese Chess', 'Bubble Shooter', '2048'];
 
 const PRE_CMD = '$pre-case$';
 
