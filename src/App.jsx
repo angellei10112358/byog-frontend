@@ -13,6 +13,7 @@ export default function App() {
     initSession,
     submitMessage,
     setSelectedVersionId,
+    addContextDivider,
   } = useGameSession();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function App() {
       </div>
       <div className="flex-1 flex overflow-hidden">
       <div className="w-[400px] min-w-[320px] border-r border-gray-700">
-        <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} />
+        <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} addContextDivider={addContextDivider} />
       </div>
       <div className="flex-1">
         <PreviewPanel

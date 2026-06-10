@@ -8,6 +8,7 @@ export default function useGameSession() {
   const [selectedVersionId, setSelectedVersionId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [newGameMode, setNewGameMode] = useState(false);
   const sessionRef = useRef(null);
 
   const initSession = useCallback(async () => {
@@ -22,16 +23,24 @@ export default function useGameSession() {
     }
   }, []);
 
+  const addContextDivider = useCallback(() => {
+    setMessages((prev) => [...prev, { role: 'divider', id: Date.now() }]);
+    setNewGameMode(true);
+  }, []);
+
   const submitMessage = useCallback(async (text) => {
     setError(null);
     const id = sessionRef.current;
     if (!id) throw new Error('No active session');
 
+    const prevHtml = !newGameMode ? versions[versions.length - 1]?.html : null;
+
     setMessages((prev) => [...prev, { role: 'user', text, id: Date.now() }]);
     setIsLoading(true);
+    setNewGameMode(false);
 
     try {
-      const res = await sendMessage(id, text);
+      const res = await sendMessage(id, text, prevHtml);
       const versionId = res.prebuilt ? `prebuilt-${res.versionId}` : res.versionId;
       const newVersion = { versionId, html: res.html, label: text.slice(0, 80), createdAt: res.createdAt };
       setVersions((prev) => [...prev, newVersion]);
@@ -50,7 +59,7 @@ export default function useGameSession() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [newGameMode, versions]);
 
   const currentHtml = versions.find((v) => v.versionId === selectedVersionId)?.html || null;
 
@@ -65,5 +74,7 @@ export default function useGameSession() {
     initSession,
     submitMessage,
     setSelectedVersionId,
+    setNewGameMode,
+    addContextDivider,
   };
 }

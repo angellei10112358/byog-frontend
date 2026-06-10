@@ -21,16 +21,24 @@ export default function MessageList({ messages, isLoading }) {
         </p>
       )}
       {messages.map((msg) => (
-        <div
-          key={msg.id}
-          className={`p-3 rounded-lg text-sm leading-relaxed whitespace-pre-wrap ${
-            msg.role === 'user'
-              ? 'bg-blue-600 text-white ml-8'
-              : 'bg-gray-700 text-gray-200 mr-8'
-          }`}
-        >
-          {msg.text}
-        </div>
+        msg.role === 'divider' ? (
+          <div key={msg.id} className="flex items-center gap-2 text-gray-500 text-xs py-2">
+            <span className="flex-1 border-t border-gray-600" />
+            <span className="flex-shrink-0 px-2">Above context clear</span>
+            <span className="flex-1 border-t border-gray-600" />
+          </div>
+        ) : (
+          <div
+            key={msg.id}
+            className={`p-3 rounded-lg text-sm leading-relaxed whitespace-pre-wrap ${
+              msg.role === 'user'
+                ? 'bg-blue-600 text-white ml-8'
+                : 'bg-gray-700 text-gray-200 mr-8'
+            }`}
+          >
+            {msg.text}
+          </div>
+        )
       ))}
       {isLoading && (
         <div className="bg-gray-700 text-gray-200 mr-8 p-3 rounded-lg text-sm">

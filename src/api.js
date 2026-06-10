@@ -6,11 +6,13 @@ export async function createSession() {
   return res.json();
 }
 
-export async function sendMessage(sessionId, message) {
+export async function sendMessage(sessionId, message, previousGameHtml) {
+  const body = { message };
+  if (previousGameHtml) body.previousGameHtml = previousGameHtml;
   const res = await fetch(`${BASE}/api/sessions/${sessionId}/messages`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify(body),
   });
   const data = await res.json();
   if (!res.ok || data.error) throw new Error(data.error || 'Request failed');
