@@ -23,6 +23,16 @@ export default function useGameSession() {
     }
   }, []);
 
+  const switchBackend = useCallback(async () => {
+    setVersions([]);
+    setMessages([]);
+    setSelectedVersionId(null);
+    setNewGameMode(false);
+    setError(null);
+    const id = await initSession();
+    return id;
+  }, [initSession]);
+
   const addContextDivider = useCallback(() => {
     setMessages((prev) => [...prev, { role: 'divider', id: Date.now() }]);
     setNewGameMode(true);
@@ -73,6 +83,7 @@ export default function useGameSession() {
     error,
     initSession,
     submitMessage,
+    switchBackend,
     setSelectedVersionId,
     setNewGameMode,
     addContextDivider,
