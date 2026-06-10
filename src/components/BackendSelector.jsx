@@ -28,15 +28,18 @@ export default function BackendSelector({ currentUrl, onSwitch }) {
   const currentLabel = BACKENDS.find((b) => b.url === currentUrl)?.label || BACKENDS[0]?.label;
 
   return (
-    <select
-      value={currentLabel}
-      onChange={handleSelect}
-      disabled={testing}
-      className="bg-gray-700 text-gray-200 text-xs rounded px-2 py-1 border border-gray-600 outline-none focus:ring-1 focus:ring-blue-500"
-    >
-      {BACKENDS.map((b) => (
-        <option key={b.label} value={b.label}>{b.label}</option>
-      ))}
-    </select>
+    <span className="flex items-center gap-1">
+      <span className="text-gray-300 text-xs">Backend:</span>
+      <select
+        value={currentLabel}
+        onChange={handleSelect}
+        disabled={testing}
+        className="bg-gray-700 text-gray-200 text-xs rounded px-2 py-1 border border-gray-600 outline-none focus:ring-1 focus:ring-blue-500"
+      >
+        {BACKENDS.map((b) => (
+          <option key={b.label} value={b.label}>{b.label}</option>
+        ))}
+      </select>
+    </span>
   );
 }
