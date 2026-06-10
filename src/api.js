@@ -1,19 +1,21 @@
-const DEFAULT_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
+const stripSlash = (s) => s?.replace(/\/+$/, '') || '';
+
+const DEFAULT_BASE = stripSlash(import.meta.env.VITE_API_BASE) || 'http://localhost:3001';
 const API_KEY = import.meta.env.VITE_API_KEY || '';
 
-let currentBase = localStorage.getItem('byog_backend_url') || DEFAULT_BASE;
+let currentBase = stripSlash(localStorage.getItem('byog_backend_url')) || DEFAULT_BASE;
 
 export function getApiBase() {
   return currentBase;
 }
 
 export function setApiBase(url) {
-  currentBase = url;
-  localStorage.setItem('byog_backend_url', url);
+  currentBase = stripSlash(url);
+  localStorage.setItem('byog_backend_url', currentBase);
 }
 
 export async function checkHealth(base) {
-  const res = await fetch(`${base || currentBase}/api/health`);
+  const res = await fetch(`${stripSlash(base || currentBase)}/api/health`);
   return res.json();
 }
 
