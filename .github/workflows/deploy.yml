@@ -29,6 +29,7 @@ jobs:
           VITE_API_BASE: ${{ vars.VITE_API_BASE }}
           VITE_BACKEND_RENDER: ${{ vars.VITE_BACKEND_RENDER }}
           VITE_BACKEND_RAILWAY: ${{ vars.VITE_BACKEND_RAILWAY }}
+          VITE_BACKEND_GOOGLE: ${{ vars.VITE_BACKEND_GOOGLE }}
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - uses: actions/configure-pages@v5
