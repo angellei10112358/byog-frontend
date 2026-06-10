@@ -34,7 +34,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} isPreBuilt={isPreBuilt} />
+      <GameFrame html={currentHtml} />
     </div>
   );
 }
