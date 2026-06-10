@@ -41,7 +41,12 @@ export default function useGameSession() {
   const submitMessage = useCallback(async (text) => {
     setError(null);
     const id = sessionRef.current;
-    if (!id) throw new Error('No active session');
+    if (!id) {
+      setMessages((prev) => [...prev, { role: 'system', text: 'No active session. Try switching backends or refreshing the page.', id: Date.now() }]);
+      setError('No active session');
+      setIsLoading(false);
+      return;
+    }
 
     const prevHtml = !newGameMode ? versions[versions.length - 1]?.html : null;
 
