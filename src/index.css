@@ -35,6 +35,17 @@ html, body, #root {
 .theme-modern .modern-chat-bg .overflow-x-auto {
   background: transparent;
 }
+/* Pre-case drag bar scrollbar extremely transparent */
+.theme-modern .modern-chat-bg .overflow-x-auto::-webkit-scrollbar {
+  height: 4px;
+}
+.theme-modern .modern-chat-bg .overflow-x-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+.theme-modern .modern-chat-bg .overflow-x-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 /* Pre-case buttons in modern: semi-transparent sky blue */
 .theme-modern .modern-chat-bg .flex.gap-2 > button {

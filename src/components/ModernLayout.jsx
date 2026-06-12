@@ -122,7 +122,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
           ref={prevRef}
           onMouseDown={devMode ? (e) => startDrag('preview', e) : undefined}
           style={{ left: panels.preview.x, top: panels.preview.y, width: panels.preview.w, height: panels.preview.h }}
-          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg`}
+          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl ${currentHtml ? 'bg-cyan-300/20' : ''} overflow-hidden shadow-lg shadow-black/20 modern-preview-bg`}
         >
           <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
           {devMode && (
