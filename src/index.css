@@ -64,6 +64,12 @@ html, body, #root {
   background: rgba(255, 255, 255, 0.6);
 }
 
+/* Top banner in modern: water blue */
+.theme-modern .bg-yellow-800 {
+  background: #06b6d4;
+  color: #fff;
+}
+
 /* Artistic title in modern theme */
 .theme-modern .title-art {
   font-family: 'Pacifico', cursive;
