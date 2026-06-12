@@ -30,3 +30,24 @@ html, body, #root {
 .theme-modern .modern-preview-bg > div:first-child {
   background: transparent !important;
 }
+
+/* Pre-case buttons in modern: semi-transparent sky blue */
+.theme-modern .modern-chat-bg .flex.gap-2 > button {
+  background: rgba(14, 165, 233, 0.25);
+}
+.theme-modern .modern-chat-bg .flex.gap-2 > button:hover {
+  background: rgba(14, 165, 233, 0.4);
+}
+
+/* Build a New Game button in modern: subtle background */
+.theme-modern .modern-chat-bg button.border-dashed.rounded {
+  background: rgba(255, 255, 255, 0.06);
+}
+.theme-modern .modern-chat-bg button.border-dashed.rounded:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Game frame background in modern: semi-transparent instead of opaque white */
+.theme-modern .modern-preview-bg .bg-white {
+  background: rgba(255, 255, 255, 0.15);
+}
