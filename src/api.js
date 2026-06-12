@@ -1,6 +1,6 @@
 const stripSlash = (s) => s?.replace(/\/+$/, '') || '';
 
-const DEFAULT_BASE = stripSlash(import.meta.env.VITE_API_BASE) || 'http://localhost:3001';
+const DEFAULT_BASE = stripSlash(import.meta.env.VITE_BACKEND_GOOGLE) || 'http://localhost:3001';
 const API_KEY = import.meta.env.VITE_API_KEY || '';
 
 let currentBase = stripSlash(localStorage.getItem('byog_backend_url')) || DEFAULT_BASE;
