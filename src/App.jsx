@@ -9,7 +9,7 @@ import ModernLayout from './components/ModernLayout';
 
 export default function App() {
   const [backendUrl, setBackendUrl] = useState(getApiBase);
-  const [uiMode, setUiMode] = useState(() => localStorage.getItem('byog_ui_mode') || 'classic');
+  const [uiMode, setUiMode] = useState(() => localStorage.getItem('byog_ui_mode') || 'modern');
   const {
     versions,
     messages,
