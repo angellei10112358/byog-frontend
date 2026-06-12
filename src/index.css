@@ -38,22 +38,22 @@ html, body, #root {
 
 /* Pre-case buttons in modern: semi-transparent sky blue */
 .theme-modern .modern-chat-bg .flex.gap-2 > button {
-  background: rgba(14, 165, 233, 0.25);
-}
-.theme-modern .modern-chat-bg .flex.gap-2 > button:hover {
   background: rgba(14, 165, 233, 0.4);
 }
+.theme-modern .modern-chat-bg .flex.gap-2 > button:hover {
+  background: rgba(14, 165, 233, 0.55);
+}
 
-/* Build a New Game button in modern: increased bg opacity + dark blue text */
+/* Build a New Game button in modern: bg opacity 0.5 + dark blue text */
 .theme-modern .modern-chat-bg button.border-dashed.rounded {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.5);
   color: #1e3a5f;
 }
 .theme-modern .modern-chat-bg button.border-dashed.rounded:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.6);
 }
 
-/* Game frame background in modern: semi-transparent instead of opaque white */
+/* Game frame background in modern: transparent so container's cyan shows through */
 .theme-modern .modern-preview-bg .bg-white {
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
 }
