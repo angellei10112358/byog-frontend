@@ -73,8 +73,7 @@ html, body, #root {
 .theme-modern .modern-preview-bg .bg-white {
   background: transparent !important;
 }
-/* Extreme iframe transparency for test area fill */
+/* iframe: transparent background but opaque content */
 .theme-modern .modern-preview-bg iframe {
-  opacity: 0.35;
   background: transparent;
 }
