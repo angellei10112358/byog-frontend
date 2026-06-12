@@ -15,7 +15,7 @@ export default function GameFrame({ html, transparentBg }) {
     <div className="flex-1 bg-white">
       <iframe
         srcDoc={srcdoc}
-        sandbox="allow-scripts"
+        sandbox="allow-scripts allow-same-origin"
         className="w-full h-full border-0"
         title="game-preview"
       />
