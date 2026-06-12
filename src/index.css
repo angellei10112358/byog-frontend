@@ -8,10 +8,6 @@ html, body, #root {
 }
 
 /* Modern theme — rounded card containers */
-.theme-modern #root {
-  background-color: #808080;
-}
-
 .theme-modern .rounded-2xl {
   scrollbar-width: thin;
   scrollbar-color: #4b5563 transparent;

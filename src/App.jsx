@@ -6,7 +6,6 @@ import PreviewPanel from './components/PreviewPanel';
 import BackendSelector from './components/BackendSelector';
 import ThemeSelector from './components/ThemeSelector';
 import ModernLayout from './components/ModernLayout';
-const bgUrl = new URL('/bg.png', import.meta.env.BASE_URL).href;
 
 export default function App() {
   const [backendUrl, setBackendUrl] = useState(getApiBase);
@@ -39,15 +38,18 @@ export default function App() {
     localStorage.setItem('byog_ui_mode', mode);
   }, []);
 
+  const bgStyle = uiMode === 'modern' ? {
+    backgroundColor: '#808080',
+    backgroundImage: `url(${import.meta.env.BASE_URL}bg.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+  } : {};
+
   return (
     <div
       className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
-      style={uiMode === 'modern' ? {
-        backgroundImage: `url(${bgUrl})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      } : {}}
+      style={bgStyle}
     >
       <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4 relative">
         For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.
