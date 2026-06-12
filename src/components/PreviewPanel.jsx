@@ -1,7 +1,7 @@
 import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
 
-export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion }) {
+export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg }) {
   const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
   const isPreBuilt = currentVersion?.versionId?.startsWith('prebuilt-') ?? false;
 
@@ -34,7 +34,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} />
+      <GameFrame html={currentHtml} transparentBg={transparentBg} />
     </div>
   );
 }

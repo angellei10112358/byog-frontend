@@ -124,7 +124,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
           style={{ left: panels.preview.x, top: panels.preview.y, width: panels.preview.w, height: panels.preview.h }}
           className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg`}
         >
-          <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} />
+          <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
           {devMode && (
             <>
               <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400/80 rounded-br cursor-nw-resize" onMouseDown={(e) => startResize('preview', 'nw', e)} />
