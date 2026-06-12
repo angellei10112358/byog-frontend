@@ -6,6 +6,7 @@ import PreviewPanel from './components/PreviewPanel';
 import BackendSelector from './components/BackendSelector';
 import ThemeSelector from './components/ThemeSelector';
 import ModernLayout from './components/ModernLayout';
+const bgUrl = new URL('/bg.png', import.meta.env.BASE_URL).href;
 
 export default function App() {
   const [backendUrl, setBackendUrl] = useState(getApiBase);
@@ -39,7 +40,15 @@ export default function App() {
   }, []);
 
   return (
-    <div className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}>
+    <div
+      className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
+      style={uiMode === 'modern' ? {
+        backgroundImage: `url(${bgUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      } : {}}
+    >
       <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4 relative">
         For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.
         <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">

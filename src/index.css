@@ -9,11 +9,7 @@ html, body, #root {
 
 /* Modern theme — rounded card containers */
 .theme-modern #root {
-  background: #808080;
-  background-image: url('/bg.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #808080;
 }
 
 .theme-modern .rounded-2xl {
