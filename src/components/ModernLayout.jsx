@@ -5,8 +5,8 @@ import PreviewPanel from './PreviewPanel';
 const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
 const DEFAULT_PANELS = {
-  chat: { x: 196, y: 39, w: 514, h: 808 },
-  preview: { x: 798, y: 39, w: 1068, h: 808 },
+  chat: { x: 196, y: 15, w: 514, h: 808 },
+  preview: { x: 798, y: 15, w: 1068, h: 808 },
 };
 
 export default function ModernLayout({ messages, isLoading, onSend, addContextDivider, versions, selectedVersionId, currentHtml, onSelectVersion }) {
