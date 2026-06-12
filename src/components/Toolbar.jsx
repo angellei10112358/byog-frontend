@@ -4,7 +4,7 @@ export default function Toolbar({ versions, selectedVersionId, onSelectVersion, 
       <select
         value={selectedVersionId || ''}
         onChange={(e) => onSelectVersion(e.target.value)}
-        className="bg-gray-700 text-white text-sm rounded px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500"
+        className={`text-sm rounded px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 ${versions.length === 0 ? 'bg-transparent text-gray-500' : 'bg-gray-700 text-white'}`}
       >
         {versions.length === 0 && <option value="">No versions</option>}
         {versions.map((v) => (
