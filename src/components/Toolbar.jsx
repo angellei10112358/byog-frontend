@@ -22,10 +22,12 @@ export default function Toolbar({ versions, selectedVersionId, onSelectVersion, 
         Rerun
       </button>
 
+      <span className="flex-1 text-center text-gray-300 text-xs tracking-wide">Test your game here</span>
+
       <button
         onClick={onDownload}
         disabled={versions.length === 0}
-        className="bg-green-700 hover:bg-green-600 disabled:opacity-40 text-white text-sm px-3 py-1.5 rounded transition-colors ml-auto"
+        className="bg-green-700 hover:bg-green-600 disabled:opacity-40 text-white text-sm px-3 py-1.5 rounded transition-colors"
       >
         Download
       </button>

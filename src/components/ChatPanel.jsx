@@ -6,7 +6,7 @@ export default function ChatPanel({ messages, isLoading, onSend, addContextDivid
   return (
     <div className="w-full h-full flex flex-col bg-gray-900">
       <div className="border-b border-gray-700 px-4 py-3">
-        <h2 className="text-white font-semibold text-sm">Build Your Own Games!</h2>
+        <h2 className="text-white font-semibold text-sm text-center">Type your idea here</h2>
       </div>
       <MessageList messages={messages} isLoading={isLoading} />
       <CaseButtons onSend={onSend} />

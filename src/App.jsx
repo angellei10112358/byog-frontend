@@ -44,7 +44,7 @@ export default function App() {
         For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.
         <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
           <BackendSelector currentUrl={backendUrl} onSwitch={handleSwitchBackend} />
-          <span className="text-gray-300 text-xs">UI</span>
+          <span className="text-gray-300 text-xs">UI:</span>
           <ThemeSelector currentTheme={uiMode} onChange={handleThemeChange} />
         </div>
       </div>

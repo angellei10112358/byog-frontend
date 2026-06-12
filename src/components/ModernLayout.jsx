@@ -4,9 +4,14 @@ import PreviewPanel from './PreviewPanel';
 
 const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
+const DEFAULT_PANELS = {
+  chat: { x: 196, y: 101, w: 514, h: 808 },
+  preview: { x: 798, y: 101, w: 1068, h: 808 },
+};
+
 export default function ModernLayout({ messages, isLoading, onSend, addContextDivider, versions, selectedVersionId, currentHtml, onSelectVersion }) {
   const [devMode, setDevMode] = useState(false);
-  const [panels, setPanels] = useState(null);
+  const [panels, setPanels] = useState(DEFAULT_PANELS);
   const keyBuf = useRef([]);
   const containerRef = useRef(null);
   const chatRef = useRef(null);
@@ -22,11 +27,8 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
         const c = containerRef.current;
         if (!c) return;
         const cr = c.getBoundingClientRect();
-        const cr2 = (el) => { const r = el.getBoundingClientRect(); return { x: r.left - cr.left, y: r.top - cr.top, w: r.width, h: r.height }; };
-        setPanels({
-          chat: cr2(chatRef.current),
-          preview: cr2(prevRef.current),
-        });
+        const snap = (el) => { const r = el.getBoundingClientRect(); return { x: r.left - cr.left, y: r.top - cr.top, w: r.width, h: r.height }; };
+        setPanels({ chat: snap(chatRef.current), preview: snap(prevRef.current) });
         setDevMode(true);
       }
     };
@@ -34,11 +36,10 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
     return () => window.removeEventListener('keydown', handler);
   }, [devMode]);
 
-  const exitDevMode = () => { setDevMode(false); setPanels(null); };
+  const exitDevMode = () => { setDevMode(false); setPanels(DEFAULT_PANELS); };
 
   const exportLayout = () => {
-    const p = panels || { chat: { x: 0, y: 0, w: 420, h: 500 }, preview: { x: 440, y: 0, w: 600, h: 500 } };
-    const blob = new Blob([JSON.stringify({ chatPanel: p.chat, previewPanel: p.preview }, null, 2)], { type: 'text/plain' });
+    const blob = new Blob([JSON.stringify({ chatPanel: panels.chat, previewPanel: panels.preview }, null, 2)], { type: 'text/plain' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'layout.txt';
@@ -89,52 +90,50 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
     return () => { window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); };
   }, [devMode]);
 
-  if (devMode && panels) {
-    return (
-      <div ref={containerRef} className="flex-1 relative overflow-hidden">
-        <div className="absolute top-2 right-2 z-50 flex gap-2 items-center">
-          <button onClick={exportLayout} className="bg-gray-700 hover:bg-gray-600 text-gray-200 text-xs px-3 py-1.5 rounded shadow">
-            Export Layout
-          </button>
-          <button onClick={exitDevMode} className="bg-red-700 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded shadow">
-            Exit Developer Mode
-          </button>
-        </div>
+  return (
+    <div className="flex-1 flex flex-col">
+      <div className="text-center py-3 text-white text-lg font-semibold tracking-wide">
+        Build Your Own Games!
+      </div>
+      <div ref={containerRef} className="flex-1 relative overflow-auto">
+        {devMode && (
+          <div className="absolute top-2 right-2 z-50 flex gap-2 items-center">
+            <button onClick={exportLayout} className="bg-gray-700 hover:bg-gray-600 text-gray-200 text-xs px-3 py-1.5 rounded shadow">Export Layout</button>
+            <button onClick={exitDevMode} className="bg-red-700 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded shadow">Exit Developer Mode</button>
+          </div>
+        )}
         <div
           ref={chatRef}
-          onMouseDown={(e) => startDrag('chat', e)}
+          onMouseDown={devMode ? (e) => startDrag('chat', e) : undefined}
           style={{ left: panels.chat.x, top: panels.chat.y, width: panels.chat.w, height: panels.chat.h }}
-          className="absolute rounded-2xl border-2 border-blue-400/60 bg-gray-800 overflow-hidden shadow-lg shadow-black/20 cursor-move"
+          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-gray-800 overflow-hidden shadow-lg shadow-black/20`}
         >
           <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
-          <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400/80 rounded-br cursor-nw-resize" onMouseDown={(e) => startResize('chat', 'nw', e)} />
-          <div className="absolute top-0 right-0 w-4 h-4 bg-blue-400/80 rounded-bl cursor-ne-resize" onMouseDown={(e) => startResize('chat', 'ne', e)} />
-          <div className="absolute bottom-0 left-0 w-4 h-4 bg-blue-400/80 rounded-tr cursor-sw-resize" onMouseDown={(e) => startResize('chat', 'sw', e)} />
-          <div className="absolute bottom-0 right-0 w-4 h-4 bg-blue-400/80 rounded-tl cursor-se-resize" onMouseDown={(e) => startResize('chat', 'se', e)} />
+          {devMode && (
+            <>
+              <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400/80 rounded-br cursor-nw-resize" onMouseDown={(e) => startResize('chat', 'nw', e)} />
+              <div className="absolute top-0 right-0 w-4 h-4 bg-blue-400/80 rounded-bl cursor-ne-resize" onMouseDown={(e) => startResize('chat', 'ne', e)} />
+              <div className="absolute bottom-0 left-0 w-4 h-4 bg-blue-400/80 rounded-tr cursor-sw-resize" onMouseDown={(e) => startResize('chat', 'sw', e)} />
+              <div className="absolute bottom-0 right-0 w-4 h-4 bg-blue-400/80 rounded-tl cursor-se-resize" onMouseDown={(e) => startResize('chat', 'se', e)} />
+            </>
+          )}
         </div>
         <div
           ref={prevRef}
-          onMouseDown={(e) => startDrag('preview', e)}
+          onMouseDown={devMode ? (e) => startDrag('preview', e) : undefined}
           style={{ left: panels.preview.x, top: panels.preview.y, width: panels.preview.w, height: panels.preview.h }}
-          className="absolute rounded-2xl border-2 border-blue-400/60 bg-gray-700/70 overflow-hidden shadow-lg shadow-black/20 cursor-move"
+          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-gray-700/70 overflow-hidden shadow-lg shadow-black/20`}
         >
           <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} />
-          <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400/80 rounded-br cursor-nw-resize" onMouseDown={(e) => startResize('preview', 'nw', e)} />
-          <div className="absolute top-0 right-0 w-4 h-4 bg-blue-400/80 rounded-bl cursor-ne-resize" onMouseDown={(e) => startResize('preview', 'ne', e)} />
-          <div className="absolute bottom-0 left-0 w-4 h-4 bg-blue-400/80 rounded-tr cursor-sw-resize" onMouseDown={(e) => startResize('preview', 'sw', e)} />
-          <div className="absolute bottom-0 right-0 w-4 h-4 bg-blue-400/80 rounded-tl cursor-se-resize" onMouseDown={(e) => startResize('preview', 'se', e)} />
+          {devMode && (
+            <>
+              <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400/80 rounded-br cursor-nw-resize" onMouseDown={(e) => startResize('preview', 'nw', e)} />
+              <div className="absolute top-0 right-0 w-4 h-4 bg-blue-400/80 rounded-bl cursor-ne-resize" onMouseDown={(e) => startResize('preview', 'ne', e)} />
+              <div className="absolute bottom-0 left-0 w-4 h-4 bg-blue-400/80 rounded-tr cursor-sw-resize" onMouseDown={(e) => startResize('preview', 'sw', e)} />
+              <div className="absolute bottom-0 right-0 w-4 h-4 bg-blue-400/80 rounded-tl cursor-se-resize" onMouseDown={(e) => startResize('preview', 'se', e)} />
+            </>
+          )}
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div ref={containerRef} className="flex-1 flex items-start justify-center gap-6 p-6 overflow-auto">
-      <div ref={chatRef} className="w-[420px] min-w-[320px] rounded-2xl border border-gray-500/30 bg-gray-800 overflow-hidden shadow-lg shadow-black/20">
-        <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
-      </div>
-      <div ref={prevRef} className="flex-1 rounded-2xl border border-gray-500/30 bg-gray-700/70 overflow-hidden shadow-lg shadow-black/20">
-        <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} />
       </div>
     </div>
   );
