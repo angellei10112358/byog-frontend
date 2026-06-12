@@ -92,7 +92,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className="text-center py-3 text-white text-lg font-semibold tracking-wide">
+      <div className="text-center pt-8 pb-3 text-white text-lg font-semibold tracking-wide">
         Build Your Own Games!
       </div>
       <div ref={containerRef} className="flex-1 relative overflow-auto">
@@ -106,7 +106,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
           ref={chatRef}
           onMouseDown={devMode ? (e) => startDrag('chat', e) : undefined}
           style={{ left: panels.chat.x, top: panels.chat.y, width: panels.chat.w, height: panels.chat.h }}
-          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-gray-800 overflow-hidden shadow-lg shadow-black/20`}
+          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg`}
         >
           <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
           {devMode && (
@@ -122,7 +122,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
           ref={prevRef}
           onMouseDown={devMode ? (e) => startDrag('preview', e) : undefined}
           style={{ left: panels.preview.x, top: panels.preview.y, width: panels.preview.w, height: panels.preview.h }}
-          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-gray-700/70 overflow-hidden shadow-lg shadow-black/20`}
+          className={`${devMode ? 'border-2 border-blue-400/60 cursor-move' : ''} absolute rounded-2xl bg-blue-900/30 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg`}
         >
           <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} />
           {devMode && (

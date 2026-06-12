@@ -8,8 +8,8 @@ html, body, #root {
 }
 
 /* Modern theme — rounded card containers */
-body.theme-modern #root {
-  background: #111827;
+.theme-modern #root {
+  background: #374151;
 }
 
 .theme-modern .rounded-2xl {
@@ -24,4 +24,13 @@ body.theme-modern #root {
 .theme-modern .rounded-2xl::-webkit-scrollbar-thumb {
   background: #4b5563;
   border-radius: 3px;
+}
+
+/* Panel inner background overrides for semi-transparent colors */
+.theme-modern .modern-chat-bg > div:first-child {
+  background: transparent !important;
+}
+
+.theme-modern .modern-preview-bg > div:first-child {
+  background: transparent !important;
 }

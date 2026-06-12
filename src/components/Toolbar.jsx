@@ -22,7 +22,7 @@ export default function Toolbar({ versions, selectedVersionId, onSelectVersion, 
         Rerun
       </button>
 
-      <span className="flex-1 text-center text-gray-300 text-xs tracking-wide">Test your game here</span>
+      <span className="flex-1 text-center text-gray-300 text-sm font-bold tracking-wide">Test your game here</span>
 
       <button
         onClick={onDownload}
