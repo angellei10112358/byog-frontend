@@ -53,11 +53,28 @@ html, body, #root {
   background: rgba(255, 255, 255, 0.6);
 }
 
-/* Game frame background in modern: transparent so container's cyan shows through */
+/* Artistic title in modern theme */
+.theme-modern .title-art {
+  font-family: 'Pacifico', cursive;
+  background: linear-gradient(135deg, #f093fb, #f5576c, #ffecd2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+/* Toolbar in modern: match Type your idea here bar opacity */
+.theme-modern .modern-preview-bg > div:first-child > div:first-child {
+  background: transparent;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Game frame background in modern: transparent */
 .theme-modern .modern-preview-bg .bg-white {
   background: transparent !important;
 }
-/* Also give the iframe itself a transparent background */
+/* Extreme iframe transparency for test area fill */
 .theme-modern .modern-preview-bg iframe {
+  opacity: 0.35;
   background: transparent;
 }

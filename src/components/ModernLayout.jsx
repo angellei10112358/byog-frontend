@@ -92,7 +92,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className="text-center pt-8 pb-3 text-white text-2xl font-semibold tracking-wide">
+      <div className="text-center pt-8 pb-3 text-2xl tracking-wide title-art">
         Build Your Own Games!
       </div>
       <div ref={containerRef} className="flex-1 relative overflow-auto">
