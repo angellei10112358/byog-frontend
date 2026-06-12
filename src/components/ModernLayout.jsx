@@ -5,8 +5,8 @@ import PreviewPanel from './PreviewPanel';
 const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
 const DEFAULT_PANELS = {
-  chat: { x: 196, y: 101, w: 514, h: 808 },
-  preview: { x: 798, y: 101, w: 1068, h: 808 },
+  chat: { x: 196, y: 39, w: 514, h: 808 },
+  preview: { x: 798, y: 39, w: 1068, h: 808 },
 };
 
 export default function ModernLayout({ messages, isLoading, onSend, addContextDivider, versions, selectedVersionId, currentHtml, onSelectVersion }) {
@@ -92,7 +92,7 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className="text-center pt-8 pb-3 text-white text-lg font-semibold tracking-wide">
+      <div className="text-center pt-8 pb-3 text-white text-xl font-semibold tracking-wide">
         Build Your Own Games!
       </div>
       <div ref={containerRef} className="flex-1 relative overflow-auto">
