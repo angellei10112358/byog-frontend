@@ -99,10 +99,13 @@ html, body, #root {
 
 /* Placeholder prompts in modern: art font, large, bold, semi-transparent */
 .theme-modern .placeholder-prompt {
-  font-family: 'Pacifico', cursive;
+  font-family: 'Dancing Script', cursive;
   font-size: 1.375rem;
   font-weight: 700;
   opacity: 0.55;
+}
+.theme-modern .modern-chat-bg .placeholder-prompt {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Toolbar in modern: match Type your idea here bar opacity */
