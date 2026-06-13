@@ -1,7 +1,7 @@
 export default function GameFrame({ html, transparentBg }) {
   if (!html) {
     return (
-      <div className="flex-1 flex items-center justify-center text-gray-500 text-sm">
+      <div className="flex-1 flex items-center justify-center text-gray-500 text-sm placeholder-prompt">
         Generate a game to see it here
       </div>
     );

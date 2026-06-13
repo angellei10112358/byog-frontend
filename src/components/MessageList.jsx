@@ -16,7 +16,7 @@ export default function MessageList({ messages, isLoading }) {
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-3">
       {messages.length === 0 && !isLoading && (
-        <p className="text-gray-400 text-sm text-center mt-20">
+        <p className="text-gray-400 text-sm text-center mt-20 placeholder-prompt">
           Describe the game you want to build
         </p>
       )}

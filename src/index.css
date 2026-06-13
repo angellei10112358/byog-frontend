@@ -97,6 +97,14 @@ html, body, #root {
   text-shadow: none;
 }
 
+/* Placeholder prompts in modern: art font, large, bold, semi-transparent */
+.theme-modern .placeholder-prompt {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.375rem;
+  font-weight: 700;
+  opacity: 0.55;
+}
+
 /* Toolbar in modern: match Type your idea here bar opacity */
 .theme-modern .modern-preview-bg > div:first-child > div:first-child {
   background: transparent;
