@@ -1,5 +1,6 @@
 import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
+import injectTransparentBg from '../utils/injectTransparentBg';
 
 export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg }) {
   const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
@@ -8,7 +9,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
   function handleRerun() {
     const iframe = document.querySelector('iframe');
     if (iframe && currentHtml) {
-      iframe.srcdoc = currentHtml;
+      iframe.srcdoc = transparentBg ? injectTransparentBg(currentHtml) : currentHtml;
     }
   }
 
