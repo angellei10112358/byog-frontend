@@ -51,17 +51,19 @@ export default function App() {
       className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
       style={bgStyle}
     >
-      <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4 relative">
-        For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
-          <BackendSelector currentUrl={backendUrl} onSwitch={handleSwitchBackend} />
-          <span className="text-gray-300 text-xs">UI:</span>
-          <ThemeSelector currentTheme={uiMode} onChange={handleThemeChange} />
+      <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1">
+          <span>For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.</span>
+          <span className="flex items-center gap-2 shrink-0">
+            <BackendSelector currentUrl={backendUrl} onSwitch={handleSwitchBackend} />
+            <span className="text-gray-300 text-xs">UI:</span>
+            <ThemeSelector currentTheme={uiMode} onChange={handleThemeChange} />
+          </span>
         </div>
       </div>
       {uiMode === 'classic' ? (
-        <div className="flex-1 flex overflow-hidden">
-          <div className="w-[400px] min-w-[320px] border-r border-gray-700">
+        <div className="flex-1 flex flex-col sm:flex-row overflow-hidden">
+          <div className="sm:w-[400px] sm:min-w-[320px] border-b sm:border-b-0 sm:border-r border-gray-700 max-h-[50vh] sm:max-h-none">
             <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} addContextDivider={addContextDivider} />
           </div>
           <div className="flex-1">

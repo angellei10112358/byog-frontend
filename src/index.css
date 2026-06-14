@@ -122,3 +122,16 @@ html, body, #root {
 .theme-modern .modern-preview-bg iframe {
   background: transparent;
 }
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .theme-modern .title-art {
+    font-size: 1.125rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+  .theme-modern .modern-chat-bg,
+  .theme-modern .modern-preview-bg {
+    border-radius: 1rem;
+  }
+}

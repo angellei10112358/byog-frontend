@@ -9,7 +9,18 @@ const DEFAULT_PANELS = {
   preview: { x: 798, y: 15, w: 1068, h: 808 },
 };
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return mobile;
+}
+
 export default function ModernLayout({ messages, isLoading, onSend, addContextDivider, versions, selectedVersionId, currentHtml, onSelectVersion }) {
+  const isMobile = useIsMobile();
   const [devMode, setDevMode] = useState(false);
   const [panels, setPanels] = useState(DEFAULT_PANELS);
   const keyBuf = useRef([]);
@@ -89,6 +100,24 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
     window.addEventListener('mouseup', mu);
     return () => { window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); };
   }, [devMode]);
+
+  if (isMobile) {
+    return (
+      <div className="flex-1 flex flex-col">
+        <div className="text-center pt-3 pb-2 text-lg tracking-wide title-art">
+          Build Your Own Games!
+        </div>
+        <div className="flex-1 flex flex-col gap-2 p-2 overflow-y-auto">
+          <div className="min-h-[200px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg">
+            <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
+          </div>
+          <div className="flex-1 min-h-[300px] rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg">
+            <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col">
