@@ -6,9 +6,6 @@ const PRE_CMD = '$pre-case$';
 
 export default function CaseButtons({ onSend }) {
   const scrollRef = useRef(null);
-  const dirRef = useRef(1);
-  const pauseRef = useRef(0);
-  const timerRef = useRef(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -18,31 +15,27 @@ export default function CaseButtons({ onSend }) {
 
     const speed = isMobile ? 2 : 1;
     const pauseFrames = isMobile ? 40 : 0;
-    const tick = () => {
-      if (pauseRef.current > 0) { pauseRef.current--; return; }
-      el.scrollLeft += dirRef.current * speed;
-      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) {
-        dirRef.current = -1;
-        pauseRef.current = pauseFrames;
-      }
-      if (el.scrollLeft <= 0) {
-        dirRef.current = 1;
-        pauseRef.current = pauseFrames;
-      }
-    };
+    let dir = 1, pause = 0, active = true;
 
-    timerRef.current = setInterval(tick, 30);
-    const cancel = () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; } };
+    function tick() {
+      if (!active) return;
+      if (pause > 0) { pause--; requestAnimationFrame(tick); return; }
+      el.scrollLeft += dir * speed;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) { dir = -1; pause = pauseFrames; }
+      if (el.scrollLeft <= 0) { dir = 1; pause = pauseFrames; }
+      requestAnimationFrame(tick);
+    }
 
-    if (!isMobile) return cancel;
+    requestAnimationFrame(tick);
 
-    const start = () => { dirRef.current = 1; pauseRef.current = 0; timerRef.current = setInterval(tick, 30); };
-    const onTouch = () => { cancel(); };
-    const onEnd = () => { if (!timerRef.current) start(); };
+    if (!isMobile) return () => { active = false; };
+
+    function onTouch() { active = false; }
+    function onEnd() { active = true; dir = 1; pause = 0; requestAnimationFrame(tick); }
     el.addEventListener('touchstart', onTouch, { passive: true });
     el.addEventListener('touchend', onEnd, { passive: true });
     return () => {
-      cancel();
+      active = false;
       el.removeEventListener('touchstart', onTouch);
       el.removeEventListener('touchend', onEnd);
     };
