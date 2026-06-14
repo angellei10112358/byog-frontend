@@ -6,38 +6,43 @@ const PRE_CMD = '$pre-case$';
 
 export default function CaseButtons({ onSend }) {
   const scrollRef = useRef(null);
+  const dirRef = useRef(1);
+  const pauseRef = useRef(0);
   const timerRef = useRef(null);
-
-  function startScroll(el, isMobile) {
-    if (isMobile && el.scrollWidth <= el.clientWidth) return;
-    let direction = 1;
-    let pause = 0;
-    const speed = isMobile ? 2 : 1;
-    const pauseFrames = isMobile ? 40 : 0;
-    timerRef.current = setInterval(() => {
-      if (pause > 0) { pause--; return; }
-      el.scrollLeft += direction * speed;
-      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) { direction = -1; pause = pauseFrames; }
-      if (el.scrollLeft <= 0) { direction = 1; pause = pauseFrames; }
-    }, 30);
-  }
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     const isMobile = window.innerWidth < 768;
-    startScroll(el, isMobile);
+    if (isMobile && el.scrollWidth <= el.clientWidth) return;
 
-    if (!isMobile) return;
-    const onTouch = () => {
-      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+    const speed = isMobile ? 2 : 1;
+    const pauseFrames = isMobile ? 40 : 0;
+    const tick = () => {
+      if (pauseRef.current > 0) { pauseRef.current--; return; }
+      el.scrollLeft += dirRef.current * speed;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) {
+        dirRef.current = -1;
+        pauseRef.current = pauseFrames;
+      }
+      if (el.scrollLeft <= 0) {
+        dirRef.current = 1;
+        pauseRef.current = pauseFrames;
+      }
     };
-    const onEnd = () => {
-      if (!timerRef.current) startScroll(el, true);
-    };
+
+    timerRef.current = setInterval(tick, 30);
+    const cancel = () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; } };
+
+    if (!isMobile) return cancel;
+
+    const start = () => { dirRef.current = 1; pauseRef.current = 0; timerRef.current = setInterval(tick, 30); };
+    const onTouch = () => { cancel(); };
+    const onEnd = () => { if (!timerRef.current) start(); };
     el.addEventListener('touchstart', onTouch, { passive: true });
     el.addEventListener('touchend', onEnd, { passive: true });
     return () => {
+      cancel();
       el.removeEventListener('touchstart', onTouch);
       el.removeEventListener('touchend', onEnd);
     };
