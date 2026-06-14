@@ -10,11 +10,14 @@ export default function CaseButtons({ onSend }) {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+    if (el.scrollWidth <= el.clientWidth) return;
     let direction = 1;
+    let pause = 0;
     const id = setInterval(() => {
-      el.scrollLeft += direction;
-      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) direction = -1;
-      if (el.scrollLeft <= 0) direction = 1;
+      if (pause > 0) { pause--; return; }
+      el.scrollLeft += direction * 2;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) { direction = -1; pause = 40; }
+      if (el.scrollLeft <= 0) { direction = 1; pause = 40; }
     }, 30);
     return () => clearInterval(id);
   }, []);

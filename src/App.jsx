@@ -51,10 +51,10 @@ export default function App() {
       className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
       style={bgStyle}
     >
-      <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-1">
+      <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4 relative">
+        <div className="flex flex-col md:block items-center justify-center">
           <span>For the best experience, please use <strong>Chrome</strong> instead of Firefox. Some games may not display correctly in Firefox.</span>
-          <span className="flex items-center gap-2 shrink-0">
+          <span className="flex items-center gap-2 mt-1 md:mt-0 md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2">
             <BackendSelector currentUrl={backendUrl} onSwitch={handleSwitchBackend} />
             <span className="text-gray-300 text-xs">UI:</span>
             <ThemeSelector currentTheme={uiMode} onChange={handleThemeChange} />

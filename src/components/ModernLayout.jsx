@@ -107,11 +107,11 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
         <div className="text-center pt-3 pb-2 text-lg tracking-wide title-art">
           Build Your Own Games!
         </div>
-        <div className="flex-1 flex flex-col gap-2 p-2 overflow-y-auto">
-          <div className="min-h-[200px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg">
+        <div className="flex-1 flex flex-col gap-1 p-1 overflow-y-auto">
+          <div className="max-h-[35vh] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg">
             <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
           </div>
-          <div className="flex-1 min-h-[300px] rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg">
+          <div className="flex-1 min-h-0 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg">
             <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
           </div>
         </div>
