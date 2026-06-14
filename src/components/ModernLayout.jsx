@@ -112,8 +112,8 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
             <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
           </div>
         </div>
-        <div className="px-1 pb-1" style={{ minHeight: '100vh' }}>
-          <div className="h-full rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg">
+        <div className="px-1 pb-1 flex flex-col" style={{ minHeight: '100vh' }}>
+          <div className="flex-1 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg">
             <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
           </div>
         </div>

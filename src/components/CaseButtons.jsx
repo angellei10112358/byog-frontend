@@ -6,33 +6,45 @@ const PRE_CMD = '$pre-case$';
 
 export default function CaseButtons({ onSend }) {
   const scrollRef = useRef(null);
+  const timerRef = useRef(null);
+
+  function startScroll(el, isMobile) {
+    if (isMobile && el.scrollWidth <= el.clientWidth) return;
+    let direction = 1;
+    let pause = 0;
+    const speed = isMobile ? 2 : 1;
+    const pauseFrames = isMobile ? 40 : 0;
+    timerRef.current = setInterval(() => {
+      if (pause > 0) { pause--; return; }
+      el.scrollLeft += direction * speed;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) { direction = -1; pause = pauseFrames; }
+      if (el.scrollLeft <= 0) { direction = 1; pause = pauseFrames; }
+    }, 30);
+  }
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    if (window.innerWidth >= 768) {
-      let direction = 1;
-      const id = setInterval(() => {
-        el.scrollLeft += direction;
-        if (el.scrollLeft + el.clientWidth >= el.scrollWidth) direction = -1;
-        if (el.scrollLeft <= 0) direction = 1;
-      }, 30);
-      return () => clearInterval(id);
-    }
-    if (el.scrollWidth <= el.clientWidth) return;
-    let direction = 1;
-    let pause = 0;
-    const id = setInterval(() => {
-      if (pause > 0) { pause--; return; }
-      el.scrollLeft += direction * 2;
-      if (el.scrollLeft + el.clientWidth >= el.scrollWidth) { direction = -1; pause = 40; }
-      if (el.scrollLeft <= 0) { direction = 1; pause = 40; }
-    }, 30);
-    return () => clearInterval(id);
+    const isMobile = window.innerWidth < 768;
+    startScroll(el, isMobile);
+
+    if (!isMobile) return;
+    const onTouch = () => {
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+    };
+    const onEnd = () => {
+      if (!timerRef.current) startScroll(el, true);
+    };
+    el.addEventListener('touchstart', onTouch, { passive: true });
+    el.addEventListener('touchend', onEnd, { passive: true });
+    return () => {
+      el.removeEventListener('touchstart', onTouch);
+      el.removeEventListener('touchend', onEnd);
+    };
   }, []);
 
   return (
-    <div ref={scrollRef} className="overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-700 bg-gray-800 scroll-smooth">
+    <div ref={scrollRef} className="overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-700 bg-gray-800">
       <div className="flex gap-2">
         {GAMES.map((name) => (
           <button
