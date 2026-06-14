@@ -134,4 +134,10 @@ html, body, #root {
   .theme-modern .modern-preview-bg {
     border-radius: 1rem;
   }
+  .theme-modern .mobile-chat > div:first-child {
+    height: auto !important;
+  }
+  .theme-modern .mobile-chat .flex-1.overflow-y-auto {
+    max-height: 120px;
+  }
 }
