@@ -62,17 +62,19 @@ export default function App() {
         </div>
       </div>
       {uiMode === 'classic' ? (
-        <div className="flex-1 flex flex-col sm:flex-row overflow-hidden">
-          <div className="sm:w-[400px] sm:min-w-[320px] border-b sm:border-b-0 sm:border-r border-gray-700 max-h-[50vh] sm:max-h-none">
+        <div className="flex-1 flex flex-col sm:flex-row overflow-y-auto sm:overflow-hidden">
+          <div className="sm:w-[400px] sm:min-w-[320px] sm:border-r border-b sm:border-b-0 border-gray-700 classic-mobile-chat">
             <ChatPanel messages={messages} isLoading={isLoading} onSend={submitMessage} addContextDivider={addContextDivider} />
           </div>
-          <div className="flex-1">
-            <PreviewPanel
-              versions={versions}
-              selectedVersionId={selectedVersionId}
-              currentHtml={currentHtml}
-              onSelectVersion={setSelectedVersionId}
-            />
+          <div className="sm:flex-1 flex flex-col min-h-screen sm:min-h-0">
+            <div className="flex-1 overflow-hidden">
+              <PreviewPanel
+                versions={versions}
+                selectedVersionId={selectedVersionId}
+                currentHtml={currentHtml}
+                onSelectVersion={setSelectedVersionId}
+              />
+            </div>
           </div>
         </div>
       ) : (

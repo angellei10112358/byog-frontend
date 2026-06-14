@@ -140,4 +140,10 @@ html, body, #root {
   .theme-modern .mobile-chat .flex-1.overflow-y-auto {
     max-height: 120px;
   }
+  .classic-mobile-chat > div:first-child {
+    height: auto !important;
+  }
+  .classic-mobile-chat .flex-1.overflow-y-auto {
+    max-height: 120px;
+  }
 }
