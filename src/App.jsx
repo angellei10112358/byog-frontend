@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
+      className={`h-full w-full flex flex-col bg-gray-900 text-white theme-${uiMode}`}
       style={bgStyle}
     >
       <div className="bg-yellow-800 text-yellow-200 text-xs text-center py-1 px-4 relative">

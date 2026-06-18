@@ -1,15 +1,15 @@
 import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
-import injectTransparentBg from '../utils/injectTransparentBg';
+import injectTransparentBg, { injectGameFitCss } from '../utils/injectTransparentBg';
 
-export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg }) {
+export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg, fitContent }) {
   const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
   const isPreBuilt = currentVersion?.versionId?.startsWith('prebuilt-') ?? false;
 
   function handleRerun() {
     const iframe = document.querySelector('iframe');
     if (iframe && currentHtml) {
-      iframe.srcdoc = injectTransparentBg(currentHtml, transparentBg);
+      iframe.srcdoc = fitContent ? injectGameFitCss(currentHtml) : injectTransparentBg(currentHtml);
     }
   }
 
@@ -27,7 +27,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-gray-900">
+    <div className={`w-full ${fitContent ? 'flex flex-col' : 'h-full flex flex-col'} bg-gray-900`}>
       <Toolbar
         versions={versions}
         selectedVersionId={selectedVersionId}
@@ -35,7 +35,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} transparentBg={transparentBg} />
+      <GameFrame html={currentHtml} transparentBg={transparentBg} fitContent={fitContent} />
     </div>
   );
 }

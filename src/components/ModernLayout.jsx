@@ -53,20 +53,22 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
   }
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col overflow-hidden">
       <div className="text-center pt-8 pb-3 text-2xl tracking-wide title-art">
         Build Your Own Games!
       </div>
-      <div className="flex-1 flex gap-4 p-4 xl:gap-8 xl:p-8 overflow-hidden">
-        <div className={`w-[30%] min-w-[260px] max-w-[420px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
-          <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
-        </div>
-        <div className={`flex-1 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg ${currentHtml && !devMode ? 'bg-cyan-300/20' : ''} ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
-          <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex gap-4 p-4 xl:gap-8 xl:p-8" style={{ minHeight: '100%' }}>
+          <div className={`w-[30%] min-w-[260px] max-w-[420px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
+            <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
+          </div>
+          <div className={`flex-1 rounded-2xl bg-cyan-300/20 shadow-lg shadow-black/20 modern-preview-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
+            <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg fitContent />
+          </div>
         </div>
       </div>
       {devMode && (
-        <div className="fixed top-2 right-2 z-50 flex gap-2 items-center">
+        <div className="fixed top-2 right-2 z-50">
           <button onClick={() => setDevMode(false)} className="bg-red-700 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded shadow">Exit Developer Mode</button>
         </div>
       )}
