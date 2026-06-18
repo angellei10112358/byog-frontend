@@ -13,7 +13,7 @@ export default function GameFrame({ html, transparentBg }) {
 
   return (
     <div className="flex-1 bg-white flex items-center justify-center overflow-hidden">
-      <div className="max-w-full max-h-full w-full h-full aspect-video">
+      <div className="max-w-full max-h-full" style={{ aspectRatio: '16/10' }}>
         <iframe
           srcDoc={srcdoc}
           sandbox="allow-scripts allow-same-origin"
