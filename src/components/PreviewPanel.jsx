@@ -2,7 +2,7 @@ import Toolbar from './Toolbar';
 import GameFrame from './GameFrame';
 import injectTransparentBg from '../utils/injectTransparentBg';
 
-export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg }) {
+export default function PreviewPanel({ versions, selectedVersionId, currentHtml, onSelectVersion, transparentBg, detectHeight }) {
   const currentVersion = versions.find((v) => v.versionId === selectedVersionId);
   const isPreBuilt = currentVersion?.versionId?.startsWith('prebuilt-') ?? false;
 
@@ -27,7 +27,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-gray-900">
+    <div className="w-full flex flex-col bg-gray-900" style={detectHeight ? {} : { height: '100%' }}>
       <Toolbar
         versions={versions}
         selectedVersionId={selectedVersionId}
@@ -35,7 +35,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
         onRerun={handleRerun}
         onDownload={handleDownload}
       />
-      <GameFrame html={currentHtml} transparentBg={transparentBg} />
+      <GameFrame html={currentHtml} transparentBg={transparentBg} detectHeight={detectHeight} />
     </div>
   );
 }

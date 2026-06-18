@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import ChatPanel from './ChatPanel';
 import PreviewPanel from './PreviewPanel';
 
@@ -32,6 +32,23 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
     return () => window.removeEventListener('keydown', handler);
   }, [devMode]);
 
+  const previewRef = useRef(null);
+  const [previewHeight, setPreviewHeight] = useState(null);
+
+  const updatePreviewHeight = useCallback(() => {
+    if (!previewRef.current) return;
+    const h = previewRef.current.offsetHeight;
+    if (h > 0) setPreviewHeight(h);
+  }, []);
+
+  useEffect(() => {
+    if (!currentHtml || !previewRef.current) { setPreviewHeight(null); return; }
+    const ro = new ResizeObserver(() => updatePreviewHeight());
+    ro.observe(previewRef.current);
+    const timer = setTimeout(updatePreviewHeight, 500);
+    return () => { ro.disconnect(); clearTimeout(timer); };
+  }, [currentHtml, updatePreviewHeight]);
+
   if (isMobile) {
     return (
       <div className="flex-1 flex flex-col overflow-y-auto">
@@ -58,12 +75,13 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
         Build Your Own Games!
       </div>
       <div className="flex-1 overflow-y-auto">
-        <div className="flex gap-4 p-4 xl:gap-8 xl:p-8" style={{ minHeight: '100%' }}>
-          <div className={`w-[30%] min-w-[260px] max-w-[420px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
+        <div className="flex items-start gap-4 p-4 xl:gap-8 xl:p-8" style={{ minHeight: '100%' }}>
+          <div className={`w-[30%] min-w-[260px] max-w-[420px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}
+               style={previewHeight ? { height: previewHeight + 'px' } : {}}>
             <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
           </div>
-          <div className={`flex-1 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
-            <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg />
+          <div ref={previewRef} className={`flex-1 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
+            <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg detectHeight />
           </div>
         </div>
       </div>
