@@ -9,7 +9,7 @@ export default function PreviewPanel({ versions, selectedVersionId, currentHtml,
   function handleRerun() {
     const iframe = document.querySelector('iframe');
     if (iframe && currentHtml) {
-      iframe.srcdoc = transparentBg ? injectTransparentBg(currentHtml) : currentHtml;
+      iframe.srcdoc = injectTransparentBg(currentHtml, transparentBg);
     }
   }
 

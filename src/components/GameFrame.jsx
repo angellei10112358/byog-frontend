@@ -9,18 +9,16 @@ export default function GameFrame({ html, transparentBg }) {
     );
   }
 
-  const srcdoc = transparentBg ? injectTransparentBg(html) : html;
+  const srcdoc = injectTransparentBg(html, transparentBg);
 
   return (
-    <div className="flex-1 bg-white flex items-center justify-center overflow-hidden">
-      <div className="max-w-full max-h-full" style={{ aspectRatio: '16/10' }}>
-        <iframe
-          srcDoc={srcdoc}
-          sandbox="allow-scripts allow-same-origin"
-          className="w-full h-full border-0"
-          title="game-preview"
-        />
-      </div>
+    <div className="flex-1 bg-white flex overflow-hidden">
+      <iframe
+        srcDoc={srcdoc}
+        sandbox="allow-scripts allow-same-origin"
+        className="flex-1 w-full border-0"
+        title="game-preview"
+      />
     </div>
   );
 }
