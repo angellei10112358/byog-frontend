@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import ChatPanel from './ChatPanel';
 import PreviewPanel from './PreviewPanel';
+import HowToUse from './HowToUse';
 
 const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
@@ -58,6 +59,9 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
         <div className="text-center pt-3 pb-2 text-lg tracking-wide title-art">
           Build Your Own Games!
         </div>
+        <div className="px-1 flex justify-end mb-1">
+          <HowToUse />
+        </div>
         <div className="px-1">
           <div className="rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg mobile-chat">
             <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
@@ -79,9 +83,14 @@ export default function ModernLayout({ messages, isLoading, onSend, addContextDi
       </div>
       <div className="flex-1 overflow-y-auto">
         <div className={`flex gap-4 p-4 xl:gap-8 xl:p-8 ${isEmpty ? 'items-stretch' : 'items-start'}`} style={{ minHeight: '100%' }}>
-          <div className={`w-[30%] min-w-[260px] max-w-[420px] rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}
-               style={isEmpty ? {} : (previewHeight ? { height: previewHeight + 'px' } : {})}>
-            <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
+          <div className="w-[30%] min-w-[260px] max-w-[420px] flex flex-col gap-2">
+            <div className="flex justify-end px-1">
+              <HowToUse />
+            </div>
+            <div className={`flex-1 rounded-2xl bg-sky-500/20 overflow-hidden shadow-lg shadow-black/20 modern-chat-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}
+                 style={isEmpty ? {} : (previewHeight ? { height: previewHeight + 'px' } : {})}>
+              <ChatPanel messages={messages} isLoading={isLoading} onSend={onSend} addContextDivider={addContextDivider} />
+            </div>
           </div>
           <div ref={previewRef} className={`flex-1 rounded-2xl bg-cyan-300/20 overflow-hidden shadow-lg shadow-black/20 modern-preview-bg ${devMode ? 'ring-2 ring-blue-400/60' : ''}`}>
             <PreviewPanel versions={versions} selectedVersionId={selectedVersionId} currentHtml={currentHtml} onSelectVersion={onSelectVersion} transparentBg detectHeight={!isEmpty} />
