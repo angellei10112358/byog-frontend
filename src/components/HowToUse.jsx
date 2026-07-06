@@ -7,7 +7,7 @@ export default function HowToUse() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded px-2.5 py-1 transition-colors"
+        className="text-xs text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded px-2.5 py-1 transition-colors bg-red-500/20"
       >
         How-to-use
       </button>
@@ -17,7 +17,7 @@ export default function HowToUse() {
           onClick={() => setOpen(false)}
         >
           <div
-            className="relative max-w-[90vw] max-h-[90vh] bg-red-500/20 rounded-lg p-2"
+            className="relative max-w-[90vw] max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
