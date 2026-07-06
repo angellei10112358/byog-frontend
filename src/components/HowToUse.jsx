@@ -7,7 +7,7 @@ export default function HowToUse() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded px-2.5 py-1 transition-colors"
+        className="text-xs text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 rounded px-2.5 py-1 transition-colors bg-red-500/20"
       >
         How-to-use
       </button>
