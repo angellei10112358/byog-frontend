@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { checkHealth } from '../api';
 
 const BACKENDS = [
+  { label: 'Self-host', url: import.meta.env.VITE_BACKEND_SELF_HOST || 'http://localhost:3001' },
   { label: 'Google', url: import.meta.env.VITE_BACKEND_GOOGLE },
   { label: 'Render', url: import.meta.env.VITE_BACKEND_RENDER },
   { label: 'Railway', url: import.meta.env.VITE_BACKEND_RAILWAY },
